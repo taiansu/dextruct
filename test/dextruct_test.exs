@@ -14,6 +14,13 @@ defmodule DextructTest do
     assert [a, b] == ["1", 0]
   end
 
+  test "Destruct and assignment" do
+    [x, y, z ] = [_a, _b, _c] <~ [1]
+    assert x == 1
+    assert y == 0
+    assert z == 0
+  end
+
   test "Destruct with map" do
     %{a: a, b: b, c: foo} <~ %{a: 1}
     assert a == 1
