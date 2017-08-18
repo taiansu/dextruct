@@ -2,7 +2,7 @@ defmodule DextructTest do
   use ExUnit.Case
 
   doctest Dextruct, except: [sigil_m: 2]
-  use Dextruct, with: 0
+  use Dextruct, fill: 0
 
   test "Destruct with list" do
     [a, b] <~ [1]

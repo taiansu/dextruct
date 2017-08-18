@@ -11,7 +11,7 @@ defmodule Dextruct do
 
       defmacro left <~ right when is_list(right) do
         len = length(left)
-        elem = unquote(opts[:with])
+        elem = unquote(opts[:fill])
         list = fill(right, len, elem)
 
         quote do
@@ -20,7 +20,7 @@ defmodule Dextruct do
       end
 
       defmacro left <~ right do
-        elem = unquote(opts[:with])
+        elem = unquote(opts[:fill])
         keys_or_length = left
                          |> Macro.expand_once(__ENV__)
                          |> fetch_keys_or_length
