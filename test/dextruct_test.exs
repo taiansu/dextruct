@@ -39,7 +39,6 @@ defmodule DextructTest do
   end
 
   test "~m with string" do
-    ~m{a, b, c => foo} = %{a: 1, b: 2, c: 3}
+    ~m{a, b, c => foo} = %{a: 1, b: 2, c: 3} # TODO: generate map with string keys
   end
-
 end
