@@ -22,7 +22,7 @@ defmodule Dextruct do
       defmacro left <~ right do
         elem = unquote(opts[:fill])
         keys_or_length = left
-                         |> Macro.expand_once(__ENV__)
+                         |> Macro.expand(__ENV__)
                          |> fetch_keys_or_length
 
         quote do
