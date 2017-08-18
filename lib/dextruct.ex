@@ -21,12 +21,12 @@ defmodule Dextruct do
 
       defmacro left <~ right do
         elem = unquote(opts[:with])
-        keys = left
-               |> Macro.expand_once(__ENV__)
-               |> fetch_keys
+        keys_or_length = left
+                         |> Macro.expand_once(__ENV__)
+                         |> fetch_keys_or_length
 
         quote do
-          unquote(left) = fill(unquote(right), unquote(keys), unquote(elem))
+          unquote(left) = fill(unquote(right), unquote(keys_or_length), unquote(elem))
         end
       end
     end
@@ -82,8 +82,11 @@ defmodule Dextruct do
     {String.to_atom(key), {String.to_atom(val), [], nil}}
   end
 
-  def fetch_keys({:%{}, _, args}) do
+  def fetch_keys_or_length({:%{}, _, args}) do
     Keyword.keys(args)
   end
-  def fetch_keys(_ast), do: raise SyntaxError
+  def fetch_keys_or_length(list) when is_list(list) do
+    length(list)
+  end
+  def fetch_keys_or_length(_ast), do: raise SyntaxError
 end

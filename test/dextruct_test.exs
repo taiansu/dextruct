@@ -5,8 +5,13 @@ defmodule DextructTest do
   use Dextruct, with: 0
 
   test "Destruct with list" do
-    # [a, b] <~ Regex.run(~r/(\d+)?([A-Z]+)?/, "1", capture: :all_but_first)
-    # assert [a, b] == ["1", nil]
+    [a, b] <~ [1]
+    assert [a, b] == [1, 0]
+  end
+
+  test "Destruct with regex" do
+    [a, b] <~ Regex.run(~r/(\d+)?([A-Z]+)?/, "1", capture: :all_but_first)
+    assert [a, b] == ["1", 0]
   end
 
   test "Destruct with map" do
