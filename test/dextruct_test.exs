@@ -2,7 +2,7 @@ defmodule DextructTest do
   use ExUnit.Case
 
   use Dextruct
-  doctest Dextruct, except: [__using__: 1, sigil_m: 2]
+  doctest Dextruct, except: [:moduledoc, __using__: 1, sigil_m: 2]
 
   describe "use default filler" do
     test "Destruct with list" do
