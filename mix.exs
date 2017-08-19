@@ -4,7 +4,7 @@ defmodule Dextruct.Mixfile do
   def project do
     [
       app: :dextruct,
-      version: "0.1.0",
+      version: "0.2.0",
       elixir: "~> 1.5",
       name: "Dextruct",
       source_url: "https://github.com/taiansu/dextruct",
@@ -33,7 +33,7 @@ defmodule Dextruct.Mixfile do
       links: %{"GitHub": "https://github.com/taiansu/dextruct",},
 
       # Docs
-       name: "Dextruct",
+       name: :dextruct,
        source_url: "https://github.com/taiansu/dextruct",
        docs: [main: "Dextruct", # The main page in the docs
               extras: ["README.md"]]
