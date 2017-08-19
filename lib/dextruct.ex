@@ -7,7 +7,7 @@ defmodule Dextruct do
   """
   defmacro __using__(opts \\ []) do
     quote do
-      import Dextruct
+      import Dextruct, unquote(Keyword.drop(opts, [:fill]))
 
       defmacro left <~ right when is_list(right) do
         len = length(left)
