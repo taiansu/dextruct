@@ -4,7 +4,7 @@ defmodule Dextruct.Mixfile do
   def project do
     [
       app: :dextruct,
-      version: "0.2.0",
+      version: "1.0.0",
       elixir: "~> 1.5",
       name: "Dextruct",
       source_url: "https://github.com/taiansu/dextruct",

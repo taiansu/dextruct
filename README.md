@@ -11,7 +11,7 @@ The package can be installed by adding `dextruct` to your list of dependencies i
 ```elixir
 def deps do
   [
-    {:dextruct, "~> 0.2.0"}
+    {:dextruct, "~> 1.0.0"}
   ]
 end
 ```
