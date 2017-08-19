@@ -27,13 +27,11 @@ defmodule Dextruct.Mixfile do
 
   defp package do
     [
-      files: ~s/lib priv mix.exs README.md LICENSE/,
+      name: :dextruct,
+      files: ["lib", "mix.exs", "README.md", "LICENSE"],
       maintainers: ["Tai An Su"],
       licenses: ["Apache 2.0"],
-      links: %{
-               "GitHub": "https://github.com/taiansu/dextruct",
-               "Docs": "https://taiansu.github.io/dextruct",
-              },
+      links: %{"GitHub": "https://github.com/taiansu/dextruct",},
     ]
   end
 
