@@ -27,6 +27,7 @@ defmodule Dextruct do
   The destructing assignment operator works on `List` and `Map`.
 
   ### List
+
   For destructing assignment on List, it simply fills up the list on left hand side with filler (nil by default).
 
         ```elixir
@@ -49,9 +50,9 @@ defmodule Dextruct do
           ["ab", "a", "b", nil, nil]
           ```
 
-    ### Map
-    Destructing assignment on `Map`, then as well, fill the keys missing in the right hand side map,
-    with filler.
+  ### Map
+
+  Destructing assignment on `Map`, then as well, fill the keys missing in the right hand side map, with filler.
 
           ```elixir
           iex> %{a: a, b: b, c: c} <~ %{a: 1}
@@ -173,4 +174,5 @@ defmodule Dextruct do
     length(list)
   end
   def fetch_keys_or_length(_ast), do: raise SyntaxError
+
 end
