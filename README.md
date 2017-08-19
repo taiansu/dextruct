@@ -41,10 +41,10 @@ nil
 One of the useful example is use with `Regex`'s optional group matching. Originally it will omit the unmatched groups in the end.
 ```elixir
 iex> Regex.run(~r/(a)?(b)?(c)?(d)?/, "ab")
-["ab", "a"]
+["ab", "a", "b"]
 
 iex> [a, b, c, d] <~ Regex.run(~r/(a)?(b)?(c)?(d)?/, "ab")
-["ab", "a", nil, nil]
+["ab", "a", "b", nil, nil]
 ```
 
 ### Map
