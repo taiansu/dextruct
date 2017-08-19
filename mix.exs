@@ -27,18 +27,23 @@ defmodule Dextruct.Mixfile do
 
   defp package do
     [
-      name: :dextruct,
       files: ["lib", "mix.exs", "README.md", "LICENSE"],
       maintainers: ["Tai An Su"],
       licenses: ["Apache 2.0"],
       links: %{"GitHub": "https://github.com/taiansu/dextruct",},
+
+      # Docs
+       name: "Dextruct",
+       source_url: "https://github.com/taiansu/dextruct",
+       docs: [main: "Dextruct", # The main page in the docs
+              extras: ["README.md"]]
     ]
   end
 
   defp deps do
     [
-      {:ex_doc, "~> 0.16", only: :dev},
-      {:excoveralls, "~> 0.7", only: [:dev, :test]},
+      {:ex_doc, "~> 0.16", only: :dev, runtime: false},
+      {:excoveralls, "~> 0.7", only: [:dev, :test], runtime: false},
     ]
   end
 end
