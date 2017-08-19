@@ -1,11 +1,12 @@
 # Dextruct
 
-**TODO: Add description**
+### Destructing assignment with `<~`
+
+It's so obvious that pattern matching with `=` is _just awesome_. But less then occasionally, we still want some destructing assignment, witout `MatchError`, works like in other languge. `Dextruct` library provides a `<~` operator which imitates similar behavior, with some other goodies.
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `dextruct` to your list of dependencies in `mix.exs`:
+The package can be installed by adding `dextruct` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
@@ -15,7 +16,92 @@ def deps do
 end
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/dextruct](https://hexdocs.pm/dextruct).
+After excute `mix deps.get` command, add `use Dextruct` in your module:
+```elixir
+def YourModule do
+  use Dextruct
+end
+```
 
+## Destruct assignment
+
+The `<~` operator works on two senarios, `List` and `Map`.
+
+### List
+For destricting assignment on `List`, it simply fills up the list on left hand side with filler (`nil` by default).
+
+```elixir
+iex> [a, b, c] <~ [1, 2]
+[1, 2, nil]
+
+iex> c
+nil
+```
+
+One of the useful example is use with `Regex`'s optional group matching. Originally it will omit the unmatched groups in the end.
+```
+iex> Regex.run(~r/(a)?(b)?(c)?(d)?/, "ab")
+["ab", "a"]
+
+iex> [a, b, c, d] <~ Regex.run(~r/(a)?(b)?(c)?(d)?/, "ab")
+["ab", "a", nil, nil]
+```
+
+### Map
+Destricting assignment on `Map`, then as well, fill the keys missing in the right hand side map,
+with filler.
+```iex
+iex> %{a: a, b: b, c: c} <~ %{a: 1}
+iex> b
+nil
+iex> c
+nil
+```
+
+### Different filler
+
+You can specify the filler by `fill` option while `use Dextruct`. That means you can only have one filler for each module.
+
+```elixir
+def YourModule do
+  use Dextruct, fill: 0
+end
+```
+
+## Map short-hand literal
+
+Dextractor also come with a short-hand literal for `Map`, which is `sigil_m`.
+```elixir
+iex> ~m{a, b, c: foo} = %{a: 1, b: 2, c: 3}
+%{a: 1, b: 2, c: 3}
+```
+
+It works well with `<~`, of course.
+```elixir
+iex> ~m{a, b, c: foo} <~ %{a: 1}
+iex> b
+nil
+iex> foo
+nil
+```
+
+### Exclude `sigil_m`
+To be honest, if you use shorthand map literal quite often, without change the binding variable in between, i.e.,  `c: foo` in the previous code demo, you should consider to use [ShortMaps](https://github.com/whatyouhide/short_maps) instead. Which more like the consensus of the community for now.
+
+To do so, you'll like to `except` the `sigil_m` while using `Dextruct`.
+```elixir
+defmodule YourModule do
+  use Dextruct, except: [sigil_m: 2]
+end
+```
+
+Actually, the `sigil_m` comes with `Dextruct` will be exclude by default or even deprecate, once the
+`ShortMap` literal becomes the de facto standard anytime in the future.
+
+## Is it any good?
+
+Hopefully.
+
+## License
+
+Apache 2
