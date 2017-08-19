@@ -3,8 +3,28 @@ defmodule Dextruct do
   The operator `<~` imitates destructing assignment behavior like in Ruby or ES6.
 
   It's so obvious that pattern matching with `=` is just awesome. But less then occasionally, we still want some destructing assignment, witout MatchError, works like in other languge. Dextruct library provides a `<~` operator which imitates similar behavior, with some other goodies.
+  """
 
-  The `<~` operator works on two senarios, List and Map.
+  @doc """
+  Use the library.
+
+  You can specify the filler by `fill` option while `use Dextruct`. That means you can only have one filler for each module.
+
+          ```elixir
+          def YourModule do
+            use Dextruct, fill: 0
+          end
+          ```
+  """
+  defmacro __using__(opts \\ []) do
+    quote do
+      import Dextruct, unquote(Keyword.drop(opts, [:fill]))
+      Application.put_env(Dextruct, :default_filler, unquote(opts[:fill]))
+    end
+  end
+
+  @doc """
+  The destructing assignment operator works on `List` and `Map`.
 
   ### List
   For destructing assignment on List, it simply fills up the list on left hand side with filler (nil by default).
@@ -42,43 +62,26 @@ defmodule Dextruct do
           iex> c
           nil
           ```
+
   """
+  defmacro left <~ right when is_list(right) do
+    len = length(left)
+    filler = Application.get_env(Dextruct, :default_filler)
+    list = fill(right, len, filler)
 
-  @doc """
-  Use the library.
-
-  You can specify the filler by `fill` option while `use Dextruct`. That means you can only have one filler for each module.
-
-          ```elixir
-          def YourModule do
-            use Dextruct, fill: 0
-          end
-          ```
-  """
-  defmacro __using__(opts \\ []) do
     quote do
-      import Dextruct, unquote(Keyword.drop(opts, [:fill]))
+      unquote(left) = unquote(list)
+    end
+  end
 
-      defmacro left <~ right when is_list(right) do
-        len = length(left)
-        filler = unquote(opts[:fill])
-        list = fill(right, len, filler)
+  defmacro left <~ right do
+    filler = Application.get_env(Dextruct, :default_filler)
+    keys_or_length = left
+                     |> Macro.expand(__ENV__)
+                     |> fetch_keys_or_length
 
-        quote do
-          unquote(left) = unquote(list)
-        end
-      end
-
-      defmacro left <~ right do
-        filler = unquote(opts[:fill])
-        keys_or_length = left
-                         |> Macro.expand(__ENV__)
-                         |> fetch_keys_or_length
-
-        quote do
-          unquote(left) = fill(unquote(right), unquote(keys_or_length), unquote(filler))
-        end
-      end
+    quote do
+      unquote(left) = fill(unquote(right), unquote(keys_or_length), unquote(filler))
     end
   end
 
