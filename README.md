@@ -43,7 +43,7 @@ One of the useful example is use with `Regex`'s optional group matching. Origina
 iex> Regex.run(~r/(a)?(b)?(c)?(d)?/, "ab")
 ["ab", "a", "b"]
 
-iex> [a, b, c, d] <~ Regex.run(~r/(a)?(b)?(c)?(d)?/, "ab")
+iex> [matched, a, b, c, d] <~ Regex.run(~r/(a)?(b)?(c)?(d)?/, "ab")
 ["ab", "a", "b", nil, nil]
 ```
 
