@@ -39,7 +39,7 @@ nil
 ```
 
 One of the useful example is use with `Regex`'s optional group matching. Originally it will omit the unmatched groups in the end.
-```
+```elixir
 iex> Regex.run(~r/(a)?(b)?(c)?(d)?/, "ab")
 ["ab", "a"]
 
@@ -86,7 +86,7 @@ nil
 ```
 
 ### Exclude `sigil_m`
-To be honest, if you use shorthand map literal quite often, without change the binding variable in between, i.e.,  `c: foo` in the previous code demo, you should consider to use [ShortMaps](https://github.com/whatyouhide/short_maps) instead. Which more like the consensus of the community for now.
+To be honest, if you use shorthand map literal quite often, without change the binding variable in between, i.e.,  `c: foo` in the previous code demo, you should consider using [ShortMaps](https://github.com/whatyouhide/short_maps) instead. Which is more like the consensus of the community for now.
 
 To do so, you'll like to `except` the `sigil_m` while using `Dextruct`.
 ```elixir
