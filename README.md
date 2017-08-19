@@ -28,7 +28,7 @@ end
 The `<~` operator works on two senarios, `List` and `Map`.
 
 ### List
-For destricting assignment on `List`, it simply fills up the list on left hand side with filler (`nil` by default).
+For destructing assignment on `List`, it simply fills up the list on left hand side with filler (`nil` by default).
 
 ```elixir
 iex> [a, b, c] <~ [1, 2]
@@ -48,7 +48,7 @@ iex> [a, b, c, d] <~ Regex.run(~r/(a)?(b)?(c)?(d)?/, "ab")
 ```
 
 ### Map
-Destricting assignment on `Map`, then as well, fill the keys missing in the right hand side map,
+Destructing assignment on `Map`, then as well, fill the keys missing in the right hand side map,
 with filler.
 ```iex
 iex> %{a: a, b: b, c: c} <~ %{a: 1}
