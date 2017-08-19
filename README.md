@@ -50,8 +50,10 @@ iex> [a, b, c, d] <~ Regex.run(~r/(a)?(b)?(c)?(d)?/, "ab")
 ### Map
 Destructing assignment on `Map`, then as well, fill the keys missing in the right hand side map,
 with filler.
-```iex
+```elixir
 iex> %{a: a, b: b, c: c} <~ %{a: 1}
+iex> a
+1
 iex> b
 nil
 iex> c
@@ -79,6 +81,8 @@ iex> ~m{a, b, c: foo} = %{a: 1, b: 2, c: 3}
 It works well with `<~`, of course.
 ```elixir
 iex> ~m{a, b, c: foo} <~ %{a: 1}
+iex> a
+1
 iex> b
 nil
 iex> foo
