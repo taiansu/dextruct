@@ -159,11 +159,13 @@ defmodule Dextruct do
   defp to_variable_ast([key], _opt) do
     k = String.to_atom(key)
     # unbinding variable is unhygienic
-    {k, {k, [], nil}}
+    {k, Macro.var(k, nil)}
   end
 
-  defp to_variable_ast([key, val], _opt) do
-    {String.to_atom(key), {String.to_atom(val), [], nil}}
+  defp to_variable_ast(pair, _opt) when length(pair) == 2 do
+    [key, val] = Enum.map(pair, &String.to_atom/1)
+    # unbinding variable is unhygienic
+    {key, Macro.var(val, nil)}
   end
 
   @doc false
